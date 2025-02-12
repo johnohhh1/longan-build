@@ -14,28 +14,25 @@ docker build -t longanpi/build-env:ubuntu20.04 --build-arg USER_ID=`id -u` --bui
 docker run --privileged -it --hostname android -v /media:/media -v /etc/localtime:/etc/localtime longanpi/build-env:ubuntu20.04 /bin/bash
 ```
 
-## Additional Tools
+## Setting Up Inside Container
 
-Once inside the container, you can install additional tools as needed:
-
-1. Install editor and common tools:
+1. Go to home directory and fix permissions:
 ```bash
-sudo apt-get update && sudo apt-get install -y nano vim
+cd ~
+sudo chown longanpi:longanpi /home/longanpi
 ```
 
-2. Install ARM cross-compilation tools:
+2. Install nano:
 ```bash
-sudo apt-get install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+sudo apt-get update && sudo apt-get install -y nano
 ```
 
-3. Install QEMU for ARM emulation (if needed):
+3. Create and run setup script:
 ```bash
-sudo apt-get install -y qemu-user-static
-```
-
-4. Install additional development tools:
-```bash
-sudo apt-get install -y android-tools-adb android-tools-fastboot
+nano setup-extras.sh
+# Copy the script content into nano
+chmod +x setup-extras.sh
+./setup-extras.sh
 ```
 
 ## Mounting Additional Directories
